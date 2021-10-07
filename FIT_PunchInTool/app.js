@@ -24,6 +24,8 @@ const password = process.argv[3];
 const chromeVer = process.argv[4];  //瀏覽器版本
 const chromeDriverVer = process.argv[5];  //Selenium Driver for Chrome版本
 
+console.log(`username: ${username}, password: ${password}, chromeVer: ${chromeVer}, chromeDriverVer: ${chromeDriverVer}`);
+
 const date = new Date();
 const year = date.getFullYear();
 const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -64,7 +66,7 @@ async function updateDriver() {
   await downloadStream.data.pipe(writer);  
   writer.on('close', ()=> {
     console.log('File downloaded! Start to decompress....');
-    decompress(downloadFile, 'dist', {
+    decompress(downloadFile, null, {
       plugins:[
         decompressUnzip()
       ]
@@ -81,6 +83,7 @@ async function updateDriver() {
 
 if (getFirstTwoVersion(chromeVer) !== getFirstTwoVersion(chromeDriverVer)) {
   //執行更新, 當Driver與Chrome瀏覽器版本不符
+  console.log('Updating driver. Please wait....');
   updateDriver();
 }
 
@@ -98,7 +101,7 @@ if (isHoliday) {
 }
 
 // Check if today is off day
-data = fs.readFileSync('./dayoff.txt');
+data = fs.readFileSync(`${__dirname}\\dayoff.txt`);
 let arrDayoff = JSON.parse(data.toString());
 isDayoff = arrDayoff.some(el => el == today);
 if (isDayoff) {
@@ -119,7 +122,7 @@ if (isDayoff) {
     await driver.findElement(By.id('view:_id1:_id24:callback1:inputText2')).sendKeys(getRandomTemperature()); //溫度
     await driver.findElement(By.id('view:_id1:_id24:callback1:radioGroup2:1')).click();
     await driver.findElement(By.id('view:_id1:_id24:callback1:radioGroup4:1')).click();
-    // await driver.findElement(By.id('view:_id1:_id24:callback1:button6')).click(); // 送出
+    await driver.findElement(By.id('view:_id1:_id24:callback1:button6')).click(); // 送出
     console.log('Punch In Done!!');
   } catch (err) {
     console.log(`Error happened: ${err.message}`);
@@ -135,7 +138,7 @@ const getRandomTemperature = function () {
 }
 
 
-function getFirstTwoVersion(ver) {
+function getFirstTwoVersion(ver) {  
   let vs = ver.split('.');
   return `${vs[0]}.${vs[1]}`;
 }
