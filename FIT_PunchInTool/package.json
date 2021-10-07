@@ -4,7 +4,11 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "axios": "^0.22.0",
+    "decompress": "^4.2.1",
+    "decompress-unzip": "^4.0.1",
     "dotenv": "^10.0.0",
+    "fast-xml-parser": "^3.20.3",
     "selenium-webdriver": "^4.0.0-beta.4"
   },
   "devDependencies": {},
