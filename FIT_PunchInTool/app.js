@@ -1,6 +1,6 @@
 /*
 Author: Alex Lin
-Version: 1.2.0
+Version: 1.3.0
 Selenium API Doc: https://www.selenium.dev/selenium/docs/api/javascript/index.html
 Chrome WebDriver: http://chromedriver.storage.googleapis.com/index.html
 Taiwan Calendar: https://data.gov.tw/dataset/14718
@@ -38,7 +38,7 @@ let isHoliday = false;
 let isDayoff = false;
 
 const downloadFile = `${__dirname}\\downloadContent.zip`;
-const driverVerConfig = `${__dirname}\\chromeDriverVer.config`;
+const driverVerConfig = `${__dirname}\\config\\chromeDriverVer.config`;
 
 
 async function updateDriver() {
@@ -86,7 +86,6 @@ if (getFirstTwoVersion(chromeVer) !== getFirstTwoVersion(chromeDriverVer)) {
   console.log('Updating driver. Please wait....');
   updateDriver();
 }
-
 console.log('The driver is up to date. Start processing...');
 
 let dateObj = holidays.find(item => {
@@ -101,7 +100,7 @@ if (isHoliday) {
 }
 
 // Check if today is off day
-data = fs.readFileSync(`${__dirname}\\dayoff.txt`);
+data = fs.readFileSync(`${__dirname}\\config\\dayoff.config`);
 let arrDayoff = JSON.parse(data.toString());
 isDayoff = arrDayoff.some(el => el == today);
 if (isDayoff) {
@@ -122,7 +121,7 @@ if (isDayoff) {
     await driver.findElement(By.id('view:_id1:_id24:callback1:inputText2')).sendKeys(getRandomTemperature()); //溫度
     await driver.findElement(By.id('view:_id1:_id24:callback1:radioGroup2:1')).click();
     await driver.findElement(By.id('view:_id1:_id24:callback1:radioGroup4:1')).click();
-    await driver.findElement(By.id('view:_id1:_id24:callback1:button6')).click(); // 送出
+    // await driver.findElement(By.id('view:_id1:_id24:callback1:button6')).click(); // 送出
     console.log('Punch In Done!!');
   } catch (err) {
     console.log(`Error happened: ${err.message}`);
