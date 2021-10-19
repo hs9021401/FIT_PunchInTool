@@ -1,6 +1,6 @@
 /*
 Author: Alex Lin
-Version: 1.3.0
+Version: 1.4.0
 Selenium API Doc: https://www.selenium.dev/selenium/docs/api/javascript/index.html
 Chrome WebDriver: http://chromedriver.storage.googleapis.com/index.html
 Taiwan Calendar: https://data.gov.tw/dataset/14718
@@ -121,7 +121,7 @@ if (isDayoff) {
     await driver.findElement(By.id('view:_id1:_id24:callback1:inputText2')).sendKeys(getRandomTemperature()); //溫度
     await driver.findElement(By.id('view:_id1:_id24:callback1:radioGroup2:1')).click();
     await driver.findElement(By.id('view:_id1:_id24:callback1:radioGroup4:1')).click();
-    // await driver.findElement(By.id('view:_id1:_id24:callback1:button6')).click(); // 送出
+    await driver.findElement(By.id('view:_id1:_id24:callback1:button6')).click(); // 送出
     console.log('Punch In Done!!');
   } catch (err) {
     console.log(`Error happened: ${err.message}`);
