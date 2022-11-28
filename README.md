@@ -1,4 +1,4 @@
-# FIT PunchInTool
+# FIT PunchInTool 自動打卡小工具 with Selenium
 ## 前置
 * **安裝[Node.js](https://nodejs.org/zh-tw/download/)**
 
